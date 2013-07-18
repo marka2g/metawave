@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails'
+gem 'protected_attributes'
 
 gem 'mysql2'
 
