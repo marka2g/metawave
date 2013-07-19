@@ -8,34 +8,34 @@ class ImageUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  # wkg... to do; get this working
-  # ImageType.all.each do |type|
-  #   version type.name.to_sym, :if => "has_#{type.name}?"
-  # end
+  ImageType.all.each do |type|
+    version type.name.to_sym, :if => "has_#{type.name}?" do
+       process :dynamic_resize_to_fit => type.name.to_sym
+    end
+  end
 
   # conditional processing: e.g. we process "thumb" version only if
   # it was defined in image_types
-  version :thumb, :if => :has_thumb? do
-    process :dynamic_resize_to_fit => :thumb
-  end
+  # version :thumb, :if => :has_thumb? do
+  #   process :dynamic_resize_to_fit => :thumb
+  # end
 
-  version :small, :if => :has_small? do
-    process :dynamic_resize_to_fit => :small
-  end
+  # version :small, :if => :has_small? do
+  #   process :dynamic_resize_to_fit => :small
+  # end
 
-  version :medium, :if => :has_medium? do
-    process :dynamic_resize_to_fit => :medium
-  end
+  # version :medium, :if => :has_medium? do
+  #   process :dynamic_resize_to_fit => :medium
+  # end
 
-  version :large, :if => :has_large? do
-    process :dynamic_resize_to_fit => :large
-  end
+  # version :large, :if => :has_large? do
+  #   process :dynamic_resize_to_fit => :large
+  # end
 
-  version :huge, :if => :has_huge? do
-    process :dynamic_resize_to_fit => :huge
-  end
+  # version :huge, :if => :has_huge? do
+  #   process :dynamic_resize_to_fit => :huge
+  # end
 
-  # a wrapper to resize_to_fill method
   def dynamic_resize_to_fit(size)
     resize_to_fill *(@image_sizes[size]) if @image_sizes[size]
   end
