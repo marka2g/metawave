@@ -8,13 +8,8 @@ This is an example app of how to use metaprogramming with Carrierwave
 * git clone git@github.com:marka2g/metawave.git
 
 * bundle install
-
 * set up database.yml
-
 * rake db:migrate
-
 * rake db:seed
-
 * rails c
-
 * play...
